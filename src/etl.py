@@ -1,5 +1,9 @@
+import logging
 from abc import ABC, abstractmethod
 from src.exceptions import ETLException
+
+
+logger = logging.getLogger(__name__)
 
 
 class Extractor(ABC):
@@ -32,4 +36,4 @@ class ETL:
             transformed_data = self.transformer.transform(data)
             self.loader.load(transformed_data)
         except ETLException as e:
-            print(f"{type(e).__name__} {e}")
+            logger.error(f"{type(e).__name__} {e}")
